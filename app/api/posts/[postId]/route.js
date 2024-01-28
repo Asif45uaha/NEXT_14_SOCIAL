@@ -55,13 +55,14 @@ export const DELETE = async (req, { params }) => {
 
         const post = await Post.findById(postId);
 
-        if (post.createdBy.toString() !== userId.toString()) {
+        if (post?.createdBy?.toString() !== userId.toString()) {
             return new Response(JSON.stringify({ error: "Unauthorized to Delete Post" }), { status: 401 });
         }
 
         const deletedRes = await Post.findByIdAndDelete(postId);
         await User.findByIdAndUpdate(userId, { $pull: { posts: postId } }, { new: true });
-        await Post.findByIdAndUpdate(postId, { $pull: { comments: postId } }, { new: true })
+        // delete all comments of the post
+        await Comment.deleteMany({ postId });
         return new Response(JSON.stringify(deletedRes), { status: 200 });
 
     } catch (error) {
@@ -79,7 +80,7 @@ export const PUT = async (req, { params }) => {
         const { text, img, userId } = body;
         const post = await Post.findById(postId);
 
-        if (post.createdBy.toString() !== userId) {
+        if (post?.createdBy?.toString() !== userId?.toString()) {
             return new Response(JSON.stringify({ error: "Unauthorized to Update Post" }), { status: 401 });
         }
 

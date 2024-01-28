@@ -12,13 +12,15 @@ export const POST = async (req, { params }) => {
         const userLikedPost = post.likes.includes(userId)
         if (userLikedPost) {
             await Post.findByIdAndUpdate(postId, { $pull: { likes: userId } }, { new: true })
+            return new Response(JSON.stringify({ message: "Unliked the Post" }), { status: 200 })
 
         }
         else {
             await Post.findByIdAndUpdate(postId, { $addToSet: { likes: userId } }, { new: true })
+            return new Response(JSON.stringify({ message: "Liked the Post" }), { status: 200 })
         }
 
-        return new Response(JSON.stringify(post), { status: 200 })
+
     } catch (error) {
         console.log(error);
         return new Response("Internal Server Error", { status: 500 })

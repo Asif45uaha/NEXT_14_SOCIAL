@@ -15,15 +15,10 @@ const EditPostPage = () => {
     const { postId } = useParams()
     const showToast = useShowToast()
     const [imgUrl, setImgUrl] = useState("")
-    const [text, setText] = useState("")
     const { data: session } = useSession()
     const user = session?.user
     const router = useRouter()
-    // useEffect(() => {
-    //     if (user) {
-    //         return user
-    //     }
-    // }, [user])
+
 
     const fetchPost = async () => {
         try {
@@ -57,6 +52,7 @@ const EditPostPage = () => {
     const handleUpdatePost = async (ev) => {
         ev.preventDefault()
         try {
+
             const res = await fetch(`/api/posts/${post._id}`, {
                 method: "PUT",
                 headers: {
@@ -66,11 +62,13 @@ const EditPostPage = () => {
             })
 
             const data = await res.json()
+            if (res?.status === 200) {
+                showToast("success", "Post Updated", "success")
+                router.push("/")
+            }
 
-            showToast("success", "Post Updated", "success")
-            router.push("/")
             if (data?.error) {
-                showToast("Error", "You can't update posts of others", "error")
+                showToast("Error", data?.error, "error")
                 return
             }
         } catch (error) {

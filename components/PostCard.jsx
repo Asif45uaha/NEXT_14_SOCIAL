@@ -56,14 +56,13 @@ const PostCard = ({ post }) => {
                 },
                 body: JSON.stringify({ userId: user?._id })
             })
-
-            if (res.ok) {
+            const data = await res.json()
+            if (res?.status === 200) {
                 setLoading(false)
                 window.location.reload()
+                showToast("success", data?.message, "success")
             }
-            if (data.error) {
-                showToast("error", "Error in deleting post", "error")
-            }
+
         } catch (error) {
             console.log(error);
 
@@ -80,7 +79,7 @@ const PostCard = ({ post }) => {
                 body: JSON.stringify({ userId: user?._id })
             })
             const data = await res.json()
-            if (data?.status === 200) {
+            if (res?.status === 200) {
                 showToast("success", "Post Deleted Success", "success")
                 setLoading(false)
                 window.location.reload()
