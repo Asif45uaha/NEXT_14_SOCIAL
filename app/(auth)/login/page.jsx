@@ -4,7 +4,7 @@ import {
     Text,
     FormControl,
     Input,
-    Button, useColorModeValue
+    Button
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ const LoginPage = () => {
     }
     return (
         <VStack justify={'center'} h={"100vh"} w={["100%", "40%"]} mx={"auto"} p={4}>
-            <FormControl bg={useColorModeValue("white", "gray.dark")} w={"100%"} p={[4, 8]} shadow={"lg"} rounded={"lg"} display={"flex"} flexDir={"column"} gap={4}>
+            <FormControl w={"100%"} p={[4, 8]} shadow={"lg"} rounded={"lg"} display={"flex"} flexDir={"column"} gap={4}>
                 <Text
                     fontSize={"2xl"}
                     fontWeight={700}

@@ -1,6 +1,6 @@
 'use client'
 import ModalUi from '@/components/ModalUi'
-import { VStack, Image, Text, HStack, Button, useDisclosure, Box, Avatar, useColorModeValue, IconButton } from '@chakra-ui/react'
+import { VStack, Image, Text, HStack, Button, useDisclosure, Box, Avatar, IconButton } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
@@ -126,7 +126,7 @@ const ProfilePage = () => {
                     <TabPanel display={"flex"} flexWrap={"wrap"} flexDir={["column", "row"]} gap={4} justifyContent={["center", "start"]}>
                         {
                             userData?.posts?.map((post, id) => {
-                                return <VStack bg={useColorModeValue("white", "gray.dark")} key={id} shadow={"lg"} p={4} rounded={"md"} w={["100%", "45%"]} justify={"start"} align={"start"}>
+                                return <VStack w={["100%", "45%"]} justify={"start"} align={"start"}>
                                     <Text>
                                         {post?.img ? post?.text.slice(0, 30) : post?.text}...
                                         <IconButton p={1} mx={2} rounded={"100%"}>

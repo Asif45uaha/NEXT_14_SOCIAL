@@ -21,7 +21,7 @@ import {
     useDisclosure,
     Button,
     Input,
-    useColorModeValue
+
 } from '@chakra-ui/react'
 import Loader from "./Loader"
 import useShowToast from "@/hooks/useShowToast"
@@ -135,7 +135,7 @@ const PostCard = ({ post }) => {
     }, [post])
 
     return loading ? <Loader /> : (
-        <VStack justify={"start"} align={"start"} w={"100%"} gap={4} bg={useColorModeValue("white", "gray.dark")} p={4} rounded={"lg"} shadow={"lg"}>
+        <VStack justify={"start"} align={"start"} w={"100%"} gap={4} p={4} rounded={"lg"} shadow={"lg"}>
             <HStack justify={"space-between"} align={"start"} w={"100%"} >
                 <HStack align={"start"} justify={"start"}>
                     <Avatar src={post?.createdBy?.profile} onClick={() => router.push(`/profile/${post?.createdBy?.username}`)} />
@@ -186,7 +186,7 @@ const PostCard = ({ post }) => {
                             <FaRegComment size={24} onClick={onOpen} />
                             <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}  >
                                 <ModalOverlay />
-                                <ModalContent bg={useColorModeValue("white", "gray.dark")}>
+                                <ModalContent >
                                     <ModalHeader>Comment a Post</ModalHeader>
                                     <ModalCloseButton />
                                     <ModalBody display={"flex"} flexDir={"column"} gap={2} >

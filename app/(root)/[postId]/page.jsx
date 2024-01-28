@@ -3,7 +3,7 @@ import Loader from '@/components/Loader'
 import { VStack, Image, HStack, Text, Box, Avatar, Divider } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FaHeart, FaRegComment, FaRegHeart } from 'react-icons/fa6'
 import {
     Modal,
@@ -76,7 +76,7 @@ const SinglePostPage = () => {
     }
     const fetchSinglePost = async () => {
         try {
-            const res = await fetch(`/api/posts/single/${postId}`)
+            const res = await fetch(useCallback(`/api/posts/single/${postId}`))
 
             const data = await res.json()
             setPost(data)
@@ -92,14 +92,14 @@ const SinglePostPage = () => {
 
     useEffect(() => {
         if (postId) fetchSinglePost()
-    }, [postId, fetchSinglePost])
+    }, [postId])
 
     console.log(post);
     return loading ? <Loader /> : (
         <VStack h={"100vh"} w={["100%", "65%"]} mx={"auto"} px={2} justify={"start"} align={"Start"} gap={4} overflowY={"scroll"}>
             <Text fontSize={"15px"} fontWeight={400}>{post?.text}</Text>
             {
-                post?.img && <Image src={post?.img} />
+                post?.img && <Image src={post?.img} alt='error' />
             }
             <VStack justifyContent={"start"} align={"start"} gap={6} w={"100%"}>
                 <HStack gap={6} >
