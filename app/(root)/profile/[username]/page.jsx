@@ -30,7 +30,11 @@ const ProfilePage = () => {
     const fetchUserInfo = async () => {
         setLoading(true)
         try {
-            const res = await fetch(`/api/users/getUser/${username}`)
+            const res = await fetch(`/api/users/getUser/${username}`, {
+                next: {
+                    revalidate: 0
+                }
+            })
             const data = await res.json()
 
             if (res?.status === 200) {

@@ -22,7 +22,11 @@ const EditPostPage = () => {
 
     const fetchPost = async () => {
         try {
-            const res = await fetch(`/api/posts/getPosts/single/${postId}`)
+            const res = await fetch(`/api/posts/getPosts/single/${postId}`, {
+                next: {
+                    revalidate: 0
+                }
+            })
             const data = await res.json()
 
             setPost(data)

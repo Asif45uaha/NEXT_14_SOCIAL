@@ -3,7 +3,7 @@ import Loader from '@/components/Loader'
 import { VStack, Image, HStack, Text, Box, Avatar, Divider } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaHeart, FaRegComment, FaRegHeart } from 'react-icons/fa6'
 import {
     Modal,
@@ -75,7 +75,11 @@ const SinglePostPage = () => {
     }
     const fetchSinglePost = async () => {
         try {
-            const res = await fetch(`/api/posts/single/${postId}`)
+            const res = await fetch(`/api/posts/single/${postId}`, {
+                next: {
+                    revalidate: 0
+                }
+            })
 
             const data = await res.json()
             setPost(data)
