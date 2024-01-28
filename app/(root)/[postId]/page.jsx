@@ -76,9 +76,7 @@ const SinglePostPage = () => {
     const fetchSinglePost = async () => {
         try {
             const res = await fetch(`/api/posts/single/${postId}`, {
-                next: {
-                    revalidate: 0
-                }
+                cache: "no-store"
             })
 
             const data = await res.json()

@@ -23,9 +23,7 @@ const EditPostPage = () => {
     const fetchPost = async () => {
         try {
             const res = await fetch(`/api/posts/getPosts/single/${postId}`, {
-                next: {
-                    revalidate: 0
-                }
+                cache: "no-store"
             })
             const data = await res.json()
 

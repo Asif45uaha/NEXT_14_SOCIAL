@@ -31,9 +31,7 @@ const ProfilePage = () => {
         setLoading(true)
         try {
             const res = await fetch(`/api/users/getUser/${username}`, {
-                next: {
-                    revalidate: 0
-                }
+                cache: "no-store"
             })
             const data = await res.json()
 

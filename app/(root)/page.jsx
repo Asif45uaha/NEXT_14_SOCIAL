@@ -29,9 +29,7 @@ const HomePage = () => {
                     "Content-Type": "application/json"
                 }
             }, {
-                next: {
-                    revalidate: 0
-                }
+                cache: "no-store"
             })
             const data = await res.json()
             setPosts(data)
