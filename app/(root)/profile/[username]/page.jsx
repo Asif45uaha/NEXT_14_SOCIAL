@@ -69,8 +69,10 @@ const ProfilePage = () => {
                 },
                 body: JSON.stringify({ userId: user._id })
             }, {
-                cache: "no-store"
-            },)
+                next: {
+                    revalidate: 0
+                }
+            })
             const data = await res.json()
             if (res?.status === 200) {
                 showToast("success", data?.message, "success")

@@ -23,7 +23,9 @@ const EditPostPage = () => {
     const fetchPost = async () => {
         try {
             const res = await fetch(`/api/posts/getPosts/single/${postId}`, {
-                cache: "no-store"
+                next: {
+                    revalidate: 0
+                }
             })
             const data = await res.json()
 
@@ -62,8 +64,10 @@ const EditPostPage = () => {
                 },
                 body: JSON.stringify({ text: inputs.text, img: imgUrl, userId: user._id })
             }, {
-                cache: "no-store"
-            },)
+                next: {
+                    revalidate: 0
+                }
+            })
 
             const data = await res.json()
             if (res?.status === 200) {

@@ -33,8 +33,10 @@ const CreatePage = () => {
                 },
                 body: JSON.stringify({ createdBy: user._id, text, img: imgUrl })
             }, {
-                cache: "no-store"
-            },)
+                next: {
+                    revalidate: 0
+                }
+            })
             if (res.ok) {
                 showToast("success", "Post created", "success")
                 router.push("/")

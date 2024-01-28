@@ -30,7 +30,9 @@ const SinglePostPage = () => {
     const HandleLikePost = async () => {
         try {
             const res = await fetch(`/api/posts/like/${post._id}`, {
-                cache: "no-store"
+                next: {
+                    revalidate: 0
+                }
             }, {
                 method: "POST",
                 headers: {
@@ -60,7 +62,9 @@ const SinglePostPage = () => {
         }
         try {
             const res = await fetch(`/api/posts/${post._id}`, {
-                cache: "no-store"
+                next: {
+                    revalidate: 0
+                }
             }, {
                 method: "POST",
                 headers: {
@@ -80,7 +84,9 @@ const SinglePostPage = () => {
     const fetchSinglePost = async () => {
         try {
             const res = await fetch(`/api/posts/single/${postId}`, {
-                cache: "no-store"
+                next: {
+                    revalidate: 0
+                }
             })
 
             const data = await res.json()

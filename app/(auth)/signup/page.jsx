@@ -27,6 +27,10 @@ const SignupPage = () => {
                     "content-Type": "application/json"
                 },
                 body: JSON.stringify(inputs)
+            }, {
+                next: {
+                    revalidate: 0
+                }
             })
             if (res.ok) router.push("/login") // redirect to home page after successful signup
             if (res.ok) {
