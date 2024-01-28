@@ -61,7 +61,9 @@ const EditPostPage = () => {
                     "content-type": "application/json"
                 },
                 body: JSON.stringify({ text: inputs.text, img: imgUrl, userId: user._id })
-            })
+            }, {
+                cache: "no-store"
+            },)
 
             const data = await res.json()
             if (res?.status === 200) {

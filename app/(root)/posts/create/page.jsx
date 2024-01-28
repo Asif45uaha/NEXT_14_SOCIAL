@@ -4,7 +4,7 @@ import { VStack, FormControl, Text, Textarea, Image, Button } from '@chakra-ui/r
 import { useSession } from 'next-auth/react'
 import { CldUploadButton } from 'next-cloudinary'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { cache, useEffect, useState } from 'react'
 
 const CreatePage = () => {
     const showToast = useShowToast()
@@ -32,7 +32,9 @@ const CreatePage = () => {
                     "content-type": "application/json"
                 },
                 body: JSON.stringify({ createdBy: user._id, text, img: imgUrl })
-            })
+            }, {
+                cache: "no-store"
+            },)
             if (res.ok) {
                 showToast("success", "Post created", "success")
                 router.push("/")

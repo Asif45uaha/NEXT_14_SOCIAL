@@ -30,6 +30,8 @@ const SinglePostPage = () => {
     const HandleLikePost = async () => {
         try {
             const res = await fetch(`/api/posts/like/${post._id}`, {
+                cache: "no-store"
+            }, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -58,6 +60,8 @@ const SinglePostPage = () => {
         }
         try {
             const res = await fetch(`/api/posts/${post._id}`, {
+                cache: "no-store"
+            }, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
