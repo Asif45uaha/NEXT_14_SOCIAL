@@ -23,7 +23,7 @@ import {
     Input,
     useColorModeValue
 } from '@chakra-ui/react'
-import LoaderComponent from "./Loader"
+import LoaderComponent from "./LoaderComponent"
 import useShowToast from "@/hooks/useShowToast"
 import { useRouter } from "next/navigation"
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa6"

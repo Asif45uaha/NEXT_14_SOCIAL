@@ -1,5 +1,5 @@
 "use client"
-import LoaderComponent from '@/components/Loader'
+import LoaderComponent from '@/components/LoaderComponent'
 import { VStack, Image, HStack, Text, Box, Avatar, Divider } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useParams } from 'next/navigation'

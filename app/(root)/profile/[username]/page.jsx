@@ -4,7 +4,7 @@ import { VStack, Image, Text, HStack, Button, useDisclosure, Box, Avatar, useCol
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import Loader from '@/components/loader'
+import Loader from '@/components/LoaderComponent'
 import { useParams, useRouter } from 'next/navigation'
 import useShowToast from '@/hooks/useShowToast'
 import { MdArrowDropDown } from 'react-icons/md'

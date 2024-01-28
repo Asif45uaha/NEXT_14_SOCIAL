@@ -2,7 +2,7 @@
 import { useSession } from "next-auth/react"
 import { VStack, Input, Box, Text } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import Loader from "@/components/Loader"
+import Loader from "@/components/LoaderComponent"
 import PostCard from "@/components/PostCard"
 
 const HomePage = () => {
