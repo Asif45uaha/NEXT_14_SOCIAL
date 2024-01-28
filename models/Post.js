@@ -20,13 +20,9 @@ const postSchema = new mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: "Comment",
         default: []
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now()
     }
-
-})
+},
+    { timestamps: true })
 
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema)
 export default Post
