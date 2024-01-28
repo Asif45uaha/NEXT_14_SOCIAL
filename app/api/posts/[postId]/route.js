@@ -55,7 +55,7 @@ export const DELETE = async (req, { params }) => {
 
         const post = await Post.findById(postId);
 
-        if (post.createdBy.toString() !== userId) {
+        if (post.createdBy.toString() !== userId.toString()) {
             return new Response(JSON.stringify({ error: "Unauthorized to Delete Post" }), { status: 401 });
         }
 
