@@ -126,7 +126,7 @@ const ProfilePage = () => {
                     <TabPanel display={"flex"} flexWrap={"wrap"} flexDir={["column", "row"]} gap={4} justifyContent={["center", "start"]}>
                         {
                             userData?.posts?.map((post, id) => {
-                                return <VStack w={["100%", "45%"]} justify={"start"} align={"start"}>
+                                return <VStack w={["100%", "45%"]} justify={"start"} align={"start"} key={id}>
                                     <Text>
                                         {post?.img ? post?.text.slice(0, 30) : post?.text}...
                                         <IconButton p={1} mx={2} rounded={"100%"}>

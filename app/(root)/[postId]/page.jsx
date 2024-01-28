@@ -16,7 +16,6 @@ import {
     useDisclosure,
     Button,
     Input,
-    useColorModeValue
 } from '@chakra-ui/react'
 import useShowToast from '@/hooks/useShowToast'
 const SinglePostPage = () => {
@@ -76,7 +75,7 @@ const SinglePostPage = () => {
     }
     const fetchSinglePost = async () => {
         try {
-            const res = await fetch(useCallback(`/api/posts/single/${postId}`))
+            const res = await fetch(`/api/posts/single/${postId}`)
 
             const data = await res.json()
             setPost(data)
@@ -117,7 +116,7 @@ const SinglePostPage = () => {
                         <FaRegComment size={24} onClick={onOpen} />
                         <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}  >
                             <ModalOverlay />
-                            <ModalContent bg={useColorModeValue("white", "gray.dark")}>
+                            <ModalContent >
                                 <ModalHeader>Comment a Post</ModalHeader>
                                 <ModalCloseButton />
                                 <ModalBody display={"flex"} flexDir={"column"} gap={2} >
