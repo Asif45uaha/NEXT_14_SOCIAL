@@ -119,7 +119,11 @@ const PostCard = ({ post }) => {
     }
     const fetchComments = async () => {
         try {
-            const res = await fetch(`/api/posts/${post?._id}`)
+            const res = await fetch(`/api/posts/${post?._id}`, {
+                next: {
+                    revalidate: 0
+                }
+            })
             const data = await res.json()
 
             setComments(data)
