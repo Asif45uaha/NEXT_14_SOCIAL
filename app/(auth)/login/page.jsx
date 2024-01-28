@@ -69,7 +69,7 @@ const LoginPage = () => {
                     "&:hover": {
                         color: "blue"
                     }
-                }} fontWeight={500}><Link href='/signup'>Doesn't Have an Account? Signup</Link></Text>
+                }} fontWeight={500}><Link href='/signup'>Doesn&apos;t Have an Account? Signup</Link></Text>
             </FormControl>
         </VStack>
     )

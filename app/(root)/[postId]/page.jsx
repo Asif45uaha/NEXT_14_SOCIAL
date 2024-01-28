@@ -92,7 +92,7 @@ const SinglePostPage = () => {
 
     useEffect(() => {
         if (postId) fetchSinglePost()
-    }, [postId])
+    }, [postId, fetchSinglePost])
 
     console.log(post);
     return loading ? <Loader /> : (
