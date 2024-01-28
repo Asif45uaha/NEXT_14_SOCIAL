@@ -138,7 +138,7 @@ const SinglePostPage = () => {
                 <VStack justify={"start"} align={"start"} gap={4}>
                     {
                         post?.comments?.map((comment, id) => {
-                            return <HStack align={"start"} justify={"Start"}>
+                            return <HStack align={"start"} justify={"Start"} key={id}>
                                 <Avatar src={comment?.commentedBy?.profile} />
                                 <VStack gap={0} align={"start"} justify={"Start"}>
                                     <Text fontSize={"18px"} fontWeight={400}>{comment?.commentedBy?.username}</Text>
