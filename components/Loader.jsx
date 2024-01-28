@@ -1,6 +1,6 @@
 "use client"
 import { Spinner, VStack, Box } from '@chakra-ui/react'
-const LoaderComponent = () => {
+const Loader = () => {
     return (
         <VStack h={'90vh'} justifyContent='center'>
             <Box
@@ -11,4 +11,4 @@ const LoaderComponent = () => {
         </VStack>
     )
 }
-export default LoaderComponent
+export default Loader

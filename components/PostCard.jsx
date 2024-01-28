@@ -23,7 +23,7 @@ import {
     Input,
     useColorModeValue
 } from '@chakra-ui/react'
-import LoaderComponent from "./LoaderComponent"
+import Loader from "./Loader"
 import useShowToast from "@/hooks/useShowToast"
 import { useRouter } from "next/navigation"
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa6"
@@ -134,7 +134,7 @@ const PostCard = ({ post }) => {
         }
     }, [post])
 
-    return loading ? <LoaderComponent /> : (
+    return loading ? <Loader /> : (
         <VStack justify={"start"} align={"start"} w={"100%"} gap={4} bg={useColorModeValue("white", "gray.dark")} p={4} rounded={"lg"} shadow={"lg"}>
             <HStack justify={"space-between"} align={"start"} w={"100%"} >
                 <HStack align={"start"} justify={"start"}>
