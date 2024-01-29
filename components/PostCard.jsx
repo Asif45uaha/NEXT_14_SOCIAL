@@ -71,8 +71,8 @@ const PostCard = ({ post }) => {
 
     const handleDeletePost = async () => {
         try {
-            const res = await fetch(`/api/posts/${post._id}`, {
-                method: "DELETE",
+            const res = await fetch(`/api/posts/delete/${post._id}`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -101,7 +101,7 @@ const PostCard = ({ post }) => {
             return
         }
         try {
-            const res = await fetch(`/api/posts/${post._id}`, {
+            const res = await fetch(`/api/posts/comments/create/${post._id}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

@@ -57,7 +57,7 @@ const EditPostPage = () => {
         ev.preventDefault()
         try {
 
-            const res = await fetch(`/api/posts/${post._id}`, {
+            const res = await fetch(`/api/posts/update/${post._id}`, {
                 method: "PUT",
                 headers: {
                     "content-type": "application/json"
@@ -71,7 +71,7 @@ const EditPostPage = () => {
 
             const data = await res.json()
             if (res?.status === 200) {
-                showToast("success", "Post Updated", "success")
+                showToast("success", data?.message, "success")
                 router.push("/")
             }
 

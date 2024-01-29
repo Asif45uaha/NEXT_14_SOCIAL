@@ -30,11 +30,11 @@ const LoginPage = () => {
 
             if (res.ok) {
                 router.push("/")
-
+                showToast("success", "Login Success", "success")
             }
-            showToast("success", "Login Success", "success")
+
             if (res.error) {
-                showToast("Error", "Error in Login", "error")
+                showToast("Error", "Wrong Credentials", "error")
             }
         } catch (error) {
             console.log(error);

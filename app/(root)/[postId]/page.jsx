@@ -2,7 +2,7 @@
 import Loader from '@/components/Loader'
 import { VStack, Image, HStack, Text, Box, Avatar, Divider } from '@chakra-ui/react'
 import { useSession } from 'next-auth/react'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { FaHeart, FaRegComment, FaRegHeart } from 'react-icons/fa6'
 import {
@@ -18,7 +18,12 @@ import {
     Input,
 } from '@chakra-ui/react'
 import useShowToast from '@/hooks/useShowToast'
+import { MdDelete } from "react-icons/md";
+import { CiEdit } from 'react-icons/ci'
+
+
 const SinglePostPage = () => {
+    const router = useRouter()
     const showToast = useShowToast()
     const [commentText, setCommentText] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -27,23 +32,27 @@ const SinglePostPage = () => {
     const { postId } = useParams()
     const { data: session } = useSession()
     const user = session?.user
+
+
     const HandleLikePost = async () => {
         try {
             const res = await fetch(`/api/posts/like/${post._id}`, {
-                next: {
-                    revalidate: 0
-                }
-            }, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ userId: user?._id })
-            })
+            }, {
+                next: {
+                    revalidate: 0
+                }
+            },)
 
-            if (res.ok) {
+            const data = await res.json()
+            if (res.status === 200) {
                 setLoading(false)
-                window.location.reload()
+                showToast("success", data?.message, "success")
+                window.location?.reload()
             }
             if (data.error) {
                 showToast("error", "Error in deleting post", "error")
@@ -61,17 +70,17 @@ const SinglePostPage = () => {
             return
         }
         try {
-            const res = await fetch(`/api/posts/${post._id}`, {
-                next: {
-                    revalidate: 0
-                }
-            }, {
+            const res = await fetch(`/api/posts/comments/create/${post._id}`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
                 },
                 body: JSON.stringify({ commentedBy: user._id, text: commentText })
-            })
+            }, {
+                next: {
+                    revalidate: 0
+                }
+            },)
 
             if (res.ok) {
                 window.location.reload()
@@ -105,7 +114,51 @@ const SinglePostPage = () => {
         if (postId) fetchSinglePost()
     }, [postId])
 
-    console.log(post);
+    const deleteComment = async (commentId) => {
+        try {
+            const res = await fetch(`/api/posts/comments/delete/${commentId}`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ userId: user._id })
+            })
+            const data = await res.json()
+
+            if (res.status === 200) {
+                showToast("success", data?.message, "success")
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
+    const updateCommentModal = async (commentId) => {
+
+        try {
+            const res = await fetch(`/api/posts/comments/update/${commentId}`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ userId: user._id, text: commentText })
+            }, {
+                next: {
+                    revalidate: 0
+                }
+            },)
+            const data = await res.json()
+            if (res.status === 200) {
+                showToast("success", data?.message, "success")
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return loading ? <Loader /> : (
         <VStack h={"100vh"} w={["100%", "65%"]} mx={"auto"} px={2} justify={"start"} align={"Start"} gap={4} overflowY={"scroll"}>
             <Text fontSize={"15px"} fontWeight={400}>{post?.text}</Text>
@@ -154,11 +207,42 @@ const SinglePostPage = () => {
                                 <Avatar src={comment?.commentedBy?.profile} />
                                 <VStack gap={0} align={"start"} justify={"Start"}>
                                     <Text fontSize={"18px"} fontWeight={400}>{comment?.commentedBy?.username}</Text>
-                                    <Text fontSize={"13px"}>{comment?.text}</Text>
+                                    <HStack justify={"space-between"} align={"center"} w={"100%"}>
+                                        <Text fontSize={"13px"}>{comment?.text}</Text>
+                                        {
+                                            comment?.commentedBy?._id === user?._id && <MdDelete onClick={() => deleteComment(comment._id)} size={18} />
+                                        }
+                                        {
+                                            comment?.commentedBy._id === user?._id &&
+                                            <>
+                                                <CiEdit size={18} onClick={onOpen} />
+                                                <Modal isOpen={isOpen} onClose={onClose} size={"4xl"}  >
+                                                    <ModalOverlay />
+                                                    <ModalContent >
+                                                        <ModalHeader>Comment a Post</ModalHeader>
+                                                        <ModalCloseButton />
+                                                        <ModalBody display={"flex"} flexDir={"column"} gap={2} >
+                                                            <Input
+                                                                value={commentText}
+                                                                onChange={(e) => setCommentText(e.target.value)}
+                                                                type="text" placeholder="write your comment.." />
+                                                        </ModalBody>
+
+                                                        <ModalFooter>
+                                                            <Button variant='solid' colorScheme={"teal"} onClick={() => updateCommentModal(comment._id)}>Update</Button>
+                                                        </ModalFooter>
+                                                    </ModalContent>
+                                                </Modal>
+                                            </>
+
+                                        }
+                                    </HStack>
+
                                 </VStack>
                             </HStack>
                         })
                     }
+
                 </VStack>
             </VStack>
         </VStack>
